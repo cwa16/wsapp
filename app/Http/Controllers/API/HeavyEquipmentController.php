@@ -53,7 +53,9 @@ class HeavyEquipmentController extends Controller
 
         $startH = Carbon::parse($startHour);
         $endH = Carbon::parse($finishHour);
-        $total_hour = $startH->diffInHours($endH);
+        $total_ha = $startH->diffInHours($endH);
+        $total_min = $startH->diffInMinutes($endH);
+        $total_hour = $total_ha.'.'.$total_min;
 
         $prestasi = $request->remark;
 
