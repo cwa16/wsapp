@@ -28,11 +28,11 @@ class MapPage extends Page
         if (!$tanggal) {
             $drivers = Driver::whereHas('HeavyEquipment', function (Builder $query) use ($equipmentId) {
                 $query->where('id', '=', $equipmentId);
-            });
+            })->get();
         } else {
             $drivers = Driver::whereDate('start_hour', $tanggal)->whereHas('HeavyEquipment', function (Builder $query) use ($equipmentId) {
                 $query->where('id', '=', $equipmentId);
-            });
+            })->get();
         }
 
         // dd($drivers);

@@ -9,7 +9,7 @@ class Coordinate extends Model
 {
     use HasFactory;
 
-    protected $table = 'Coordinates';
+    protected $table = 'coordinates';
 
     protected $fillable = [
         'driver_id',

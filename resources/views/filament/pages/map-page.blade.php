@@ -42,13 +42,13 @@
         <div class="mb-2">
             <ul class="list-none">
                 @php
-                    $driver = $drivers->first();
+                    $driverx = $drivers->first();
                 @endphp
-                @if ($driver)
-                    <li><b>Asset Code:</b> {{ $driver->HeavyEquipment->asset_code }}</li>
-                    <li><b>Register No.:</b> {{ $driver->HeavyEquipment->register_no }}</li>
-                    <li><b>Name Unit:</b> {{ $driver->HeavyEquipment->name }}</li>
-                    <li><b>Type:</b> {{ $driver->HeavyEquipment->type }}</li>
+                @if ($driverx)
+                    <li><b>Asset Code:</b> {{ $driverx->HeavyEquipment->asset_code }}</li>
+                    <li><b>Register No.:</b> {{ $driverx->HeavyEquipment->register_no }}</li>
+                    <li><b>Name Unit:</b> {{ $driverx->HeavyEquipment->name }}</li>
+                    <li><b>Type:</b> {{ $driverx->HeavyEquipment->type }}</li>
                 @endif
             </ul>
         </div>
@@ -83,11 +83,9 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200"
                     @php
-                        $total_hour = 0;
-                        $total_rit = 0;
-                    @endphp
-                    @forelse ($drivers->get() as $driver)
-                        <tr>
+$total_hour = 0;
+                        $total_rit = 0; @endphp
+                    @forelse ($drivers as $driver) <tr>
                             <td class="border border-gray-300 px-4 py-2 text-sm text-gray-700">
                                 {{ \Carbon\Carbon::parse($driver->created_at)->isoFormat('dddd, D MMMM Y') }}
                             </td>
@@ -115,21 +113,22 @@
                             <td class="border border-gray-300 px-4 py-2 text-sm text-gray-700">{{ $driver->remark }}
                             </td>
                         </tr>
-                        <tr>
-                            @php
-                                $total_hour += $driver->total_hour;
-                                $total_rit += $driver->remark;
-                            @endphp
-                            <th class="border border-gray-300 px-4 py-2 text-sm text-gray-700" colspan="9">Total</th>
-                            <th class="border border-gray-300 px-4 py-2 text-sm text-gray-700">{{ $total_hour }}</th>
-                            <th class="border border-gray-300 px-4 py-2 text-sm text-gray-700">{{ $total_rit }}</th>
-                        </tr>
+                        @php
+                            $total_hour += $driver->total_hour;
+                            $total_rit += $driver->remark;
+                        @endphp
                     @empty
                     <tr>
                         <td colspan="13" class="text-center">- Silahkan filter data untuk menampilkan data -</td>
-                    </tr>
-                    @endforelse
+                    </tr> @endforelse
                     </tbody>
+                <tfoot>
+                    <tr>
+                        <th class="border border-gray-300 px-4 py-2 text-sm text-gray-700" colspan="9">Total</th>
+                        <th class="border border-gray-300 px-4 py-2 text-sm text-gray-700">{{ $total_hour }}</th>
+                        <th class="border border-gray-300 px-4 py-2 text-sm text-gray-700">{{ $total_rit }}</th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
 
